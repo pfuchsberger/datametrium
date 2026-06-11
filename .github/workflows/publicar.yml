@@ -1,0 +1,33 @@
+name: publicar-json
+
+# Genera datametrium.json y lo sube a Cloudflare R2.
+# El disparo lo hace cron-job.org via la API de GitHub (workflow_dispatch),
+# que es confiable a horario fijo y maneja DST por timezone. No se usa el
+# cron interno de GitHub porque dropea/demora los runs.
+on:
+  # Disparado por cron-job.org (workflow_dispatch via API) o a mano desde Actions.
+  workflow_dispatch: {}
+
+concurrency:
+  group: publicar-json
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install yfinance pandas requests
+
+      - name: Generar y subir JSON
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: python publicar.py
