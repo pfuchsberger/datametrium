@@ -12,40 +12,76 @@ Variables de entorno necesarias (secrets del repo):
 Uso local (solo generar, sin subir):  py publicar.py --solo-generar
 """
 
+import csv
+import io
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
-import yfinance as yf
 
-TICKERS = ["^VIX", "UVIX", "UVXY"]
 ARCHIVO = "datametrium.json"
 R2_KEY = "datametrium.json"
 
+# Endpoint de settlement diario de la CBOE: devuelve un CSV con el precio de
+# settlement de TODOS los contratos de futuros listados (Product,Symbol,
+# Expiration Date,Price) para la fecha de trading ?dt=YYYY-MM-DD. Los datos
+# salen ~10:00 CT del dia habil siguiente. Filtramos Product == "VX" para
+# quedarnos con la curva completa de futuros de VIX (mensuales + semanales).
+CBOE_SETTLEMENT = "https://www-api.cboe.com/us/futures/market_statistics/settlement/csv"
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+
+
+def _bajar_settlement(dt):
+    """Devuelve las filas VX del settlement de la fecha dt, o [] si no hay."""
+    resp = requests.get(
+        CBOE_SETTLEMENT,
+        params={"dt": dt.isoformat()},
+        headers={"User-Agent": UA},
+        timeout=60,
+    )
+    resp.raise_for_status()
+    filas = list(csv.DictReader(io.StringIO(resp.text)))
+    return [f for f in filas if f.get("Product") == "VX"]
+
 
 def generar_datos():
-    """Arma el dict que va al JSON.
+    """Lee la curva de futuros de VIX de la CBOE y arma el dict del JSON.
 
-    Reemplazar/extender aca el contenido real. El resto del pipeline
-    (escritura, subida a R2, workflow) no depende de que haya adentro.
+    Busca el settlement mas reciente disponible: prueba hoy y retrocede dia a
+    dia (cubre fin de semana / feriados / lag de publicacion).
     """
-    datos = {
+    hoy = datetime.now(timezone.utc).date()
+    filas, fecha_settle = None, None
+    for atras in range(7):
+        dt = hoy - timedelta(days=atras)
+        vx = _bajar_settlement(dt)
+        if vx:
+            filas, fecha_settle = vx, dt
+            break
+    if not filas:
+        raise RuntimeError("CBOE no devolvio datos VX en los ultimos 7 dias")
+
+    curva = []
+    for f in filas:
+        venc = datetime.strptime(f["Expiration Date"], "%Y-%m-%d").date()
+        curva.append({
+            "symbol": f["Symbol"],
+            "vencimiento": f["Expiration Date"],
+            "dias_al_vto": (venc - fecha_settle).days,
+            "precio": float(f["Price"]),
+        })
+    curva.sort(key=lambda c: c["vencimiento"])
+
+    return {
+        "fuente": "CBOE settlement",
+        "fecha_settlement": fecha_settle.isoformat(),
         "generado_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "cotizaciones": {},
+        "n_contratos": len(curva),
+        "curva": curva,
     }
-    for ticker in TICKERS:
-        hist = yf.Ticker(ticker).history(period="5d")
-        if hist.empty:
-            print(f"AVISO: sin datos para {ticker}")
-            continue
-        ultimo = hist.iloc[-1]
-        datos["cotizaciones"][ticker] = {
-            "fecha": hist.index[-1].strftime("%Y-%m-%d"),
-            "cierre": round(float(ultimo["Close"]), 4),
-        }
-    return datos
 
 
 def subir_a_r2(path):

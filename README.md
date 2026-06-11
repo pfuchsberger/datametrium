@@ -15,8 +15,18 @@ cron-job.org ──POST──▶ GitHub API (workflow_dispatch)
 
 ## Archivos
 
-- `publicar.py` — genera el JSON (hoy: snapshot VIX/UVIX/UVXY vía yfinance) y lo sube a R2. El contenido se cambia editando solo `generar_datos()`.
+- `publicar.py` — lee **toda la curva de futuros de VIX (VX)** del settlement diario de la CBOE y la guarda en `datametrium.json`, luego lo sube a R2. El contenido se cambia editando solo `generar_datos()`.
 - `.github/workflows/publicar.yml` — workflow con `workflow_dispatch` (sin cron interno de GitHub).
+
+## Fuente de datos
+
+Endpoint público de settlement de la CBOE (CSV, todos los contratos de futuros):
+
+```
+https://www-api.cboe.com/us/futures/market_statistics/settlement/csv?dt=YYYY-MM-DD
+```
+
+Se filtra `Product == "VX"` → curva completa (mensuales + semanales) con `symbol`, `vencimiento`, `dias_al_vto` y `precio`. El settlement sale ~10:00 CT del día hábil siguiente; el script retrocede hasta 7 días para tomar el más reciente disponible.
 
 ## Setup (una sola vez)
 
