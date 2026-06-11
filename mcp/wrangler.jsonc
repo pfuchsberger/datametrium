@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "datametrium-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-10",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Durable Object que hostea el McpAgent. El binding DEBE llamarse MCP_OBJECT
+  // (es el nombre que McpAgent.serve busca por defecto).
+  "durable_objects": {
+    "bindings": [
+      { "name": "MCP_OBJECT", "class_name": "DatametriumMCP" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["DatametriumMCP"] }
+  ],
+
+  // Bucket R2 donde el pipeline (publicar.py) deja datametrium.json.
+  // bucket_name debe coincidir con el secret R2_BUCKET del repo.
+  "r2_buckets": [
+    { "binding": "DATA", "bucket_name": "datametrium" }
+  ],
+
+  "observability": { "enabled": true }
+}
