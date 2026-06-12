@@ -1,15 +1,18 @@
 name: publicar-json
 
-# Genera datametrium.json y lo sube a Cloudflare R2.
-# El disparo lo hace cron-job.org via la API de GitHub (workflow_dispatch),
-# que es confiable a horario fijo y maneja DST por timezone. No se usa el
-# cron interno de GitHub porque dropea/demora los runs.
+# Genera datametrium.json (curva de futuros de VIX desde la CBOE) y lo
+# commitea de vuelta al repo. El disparo lo hace cron-job.org via la API de
+# GitHub (workflow_dispatch), confiable a horario fijo y maneja DST por
+# timezone. No se usa el cron interno de GitHub porque dropea/demora runs.
 on:
   # Disparado por cron-job.org (workflow_dispatch via API) o a mano desde Actions.
   workflow_dispatch: {}
 
+permissions:
+  contents: write          # para commitear el JSON de vuelta al repo
+
 concurrency:
-  group: publicar-json
+  group: publicar-json     # serializa corridas, evita pushes simultaneos
   cancel-in-progress: false
 
 jobs:
@@ -25,9 +28,18 @@ jobs:
       - name: Instalar dependencias
         run: pip install requests
 
-      - name: Generar y subir JSON
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+      - name: Generar JSON
         run: python publicar.py
+
+      - name: Commit y push del JSON
+        run: |
+          if [ -n "$(git status --porcelain datametrium.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add datametrium.json
+            git commit -m "Curva VIX $(date -u +%FT%TZ)"
+            git pull --rebase --autostash
+            git push
+          else
+            echo "Sin cambios en datametrium.json."
+          fi
