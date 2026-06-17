@@ -1,14 +1,92 @@
 {
   "fuente": "CBOE settlement",
   "fecha_settlement": "2026-06-17",
-  "generado_utc": "2026-06-17T19:20:23+00:00",
-  "n_contratos": 1,
+  "generado_utc": "2026-06-17T20:20:24+00:00",
+  "n_contratos": 14,
   "curva": [
     {
       "symbol": "VX/M6",
       "vencimiento": "2026-06-17",
       "dias_al_vto": 0,
       "precio": 16.2
+    },
+    {
+      "symbol": "VX25/M6",
+      "vencimiento": "2026-06-24",
+      "dias_al_vto": 7,
+      "precio": 19.255
+    },
+    {
+      "symbol": "VX26/N6",
+      "vencimiento": "2026-07-01",
+      "dias_al_vto": 14,
+      "precio": 19.255
+    },
+    {
+      "symbol": "VX27/N6",
+      "vencimiento": "2026-07-08",
+      "dias_al_vto": 21,
+      "precio": 19.255
+    },
+    {
+      "symbol": "VX28/N6",
+      "vencimiento": "2026-07-15",
+      "dias_al_vto": 28,
+      "precio": 19.255
+    },
+    {
+      "symbol": "VX/N6",
+      "vencimiento": "2026-07-22",
+      "dias_al_vto": 35,
+      "precio": 19.255
+    },
+    {
+      "symbol": "VX30/N6",
+      "vencimiento": "2026-07-29",
+      "dias_al_vto": 42,
+      "precio": 19.255
+    },
+    {
+      "symbol": "VX/Q6",
+      "vencimiento": "2026-08-19",
+      "dias_al_vto": 63,
+      "precio": 20.3117
+    },
+    {
+      "symbol": "VX/U6",
+      "vencimiento": "2026-09-16",
+      "dias_al_vto": 91,
+      "precio": 21.0532
+    },
+    {
+      "symbol": "VX/V6",
+      "vencimiento": "2026-10-21",
+      "dias_al_vto": 126,
+      "precio": 21.7933
+    },
+    {
+      "symbol": "VX/X6",
+      "vencimiento": "2026-11-18",
+      "dias_al_vto": 154,
+      "precio": 22.005
+    },
+    {
+      "symbol": "VX/Z6",
+      "vencimiento": "2026-12-16",
+      "dias_al_vto": 182,
+      "precio": 21.9735
+    },
+    {
+      "symbol": "VX/F7",
+      "vencimiento": "2027-01-20",
+      "dias_al_vto": 217,
+      "precio": 22.5858
+    },
+    {
+      "symbol": "VX/G7",
+      "vencimiento": "2027-02-17",
+      "dias_al_vto": 245,
+      "precio": 22.737
     }
   ]
 }
