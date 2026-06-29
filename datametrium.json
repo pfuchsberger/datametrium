@@ -1,92 +1,92 @@
 {
   "fuente": "CBOE settlement",
-  "fecha_settlement": "2026-06-26",
-  "generado_utc": "2026-06-29T19:20:20+00:00",
+  "fecha_settlement": "2026-06-29",
+  "generado_utc": "2026-06-29T20:20:20+00:00",
   "n_contratos": 14,
   "curva": [
     {
       "symbol": "VX26/N6",
       "vencimiento": "2026-07-01",
-      "dias_al_vto": 5,
-      "precio": 19.0598
+      "dias_al_vto": 2,
+      "precio": 18.415
     },
     {
       "symbol": "VX27/N6",
       "vencimiento": "2026-07-08",
-      "dias_al_vto": 12,
-      "precio": 19.0598
+      "dias_al_vto": 9,
+      "precio": 18.415
     },
     {
       "symbol": "VX28/N6",
       "vencimiento": "2026-07-15",
-      "dias_al_vto": 19,
-      "precio": 19.0598
+      "dias_al_vto": 16,
+      "precio": 18.415
     },
     {
       "symbol": "VX/N6",
       "vencimiento": "2026-07-22",
-      "dias_al_vto": 26,
-      "precio": 19.0598
+      "dias_al_vto": 23,
+      "precio": 18.415
     },
     {
       "symbol": "VX30/N6",
       "vencimiento": "2026-07-29",
-      "dias_al_vto": 33,
-      "precio": 19.0598
+      "dias_al_vto": 30,
+      "precio": 18.415
     },
     {
       "symbol": "VX31/Q6",
       "vencimiento": "2026-08-05",
-      "dias_al_vto": 40,
-      "precio": 19.0598
+      "dias_al_vto": 37,
+      "precio": 18.415
     },
     {
       "symbol": "VX/Q6",
       "vencimiento": "2026-08-19",
-      "dias_al_vto": 54,
-      "precio": 19.8178
+      "dias_al_vto": 51,
+      "precio": 19.2634
     },
     {
       "symbol": "VX/U6",
       "vencimiento": "2026-09-16",
-      "dias_al_vto": 82,
-      "precio": 20.4315
+      "dias_al_vto": 79,
+      "precio": 20.0277
     },
     {
       "symbol": "VX/V6",
       "vencimiento": "2026-10-21",
-      "dias_al_vto": 117,
-      "precio": 21.0124
+      "dias_al_vto": 114,
+      "precio": 20.7081
     },
     {
       "symbol": "VX/X6",
       "vencimiento": "2026-11-18",
-      "dias_al_vto": 145,
-      "precio": 21.2173
+      "dias_al_vto": 142,
+      "precio": 20.9669
     },
     {
       "symbol": "VX/Z6",
       "vencimiento": "2026-12-16",
-      "dias_al_vto": 173,
-      "precio": 21.175
+      "dias_al_vto": 170,
+      "precio": 20.9807
     },
     {
       "symbol": "VX/F7",
       "vencimiento": "2027-01-20",
-      "dias_al_vto": 208,
-      "precio": 21.9637
+      "dias_al_vto": 205,
+      "precio": 21.856
     },
     {
       "symbol": "VX/G7",
       "vencimiento": "2027-02-17",
-      "dias_al_vto": 236,
-      "precio": 22.1244
+      "dias_al_vto": 233,
+      "precio": 22.05
     },
     {
       "symbol": "VX/H7",
       "vencimiento": "2027-03-17",
-      "dias_al_vto": 264,
-      "precio": 22.275
+      "dias_al_vto": 261,
+      "precio": 22.15
     }
   ]
 }
