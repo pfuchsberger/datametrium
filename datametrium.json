@@ -1,92 +1,14 @@
 {
   "fuente": "CBOE settlement",
-  "fecha_settlement": "2026-08-25",
-  "generado_utc": "2026-08-26T13:20:18+00:00",
-  "n_contratos": 14,
+  "fecha_settlement": "2026-08-26",
+  "generado_utc": "2026-08-26T14:20:22+00:00",
+  "n_contratos": 1,
   "curva": [
     {
       "symbol": "VX34/Q6",
       "vencimiento": "2026-08-26",
-      "dias_al_vto": 1,
-      "precio": 17.2042
-    },
-    {
-      "symbol": "VX35/U6",
-      "vencimiento": "2026-09-02",
-      "dias_al_vto": 8,
-      "precio": 17.2042
-    },
-    {
-      "symbol": "VX36/U6",
-      "vencimiento": "2026-09-09",
-      "dias_al_vto": 15,
-      "precio": 17.2042
-    },
-    {
-      "symbol": "VX/U6",
-      "vencimiento": "2026-09-16",
-      "dias_al_vto": 22,
-      "precio": 17.2042
-    },
-    {
-      "symbol": "VX38/U6",
-      "vencimiento": "2026-09-23",
-      "dias_al_vto": 29,
-      "precio": 17.2042
-    },
-    {
-      "symbol": "VX39/U6",
-      "vencimiento": "2026-09-30",
-      "dias_al_vto": 36,
-      "precio": 17.2042
-    },
-    {
-      "symbol": "VX/V6",
-      "vencimiento": "2026-10-21",
-      "dias_al_vto": 57,
-      "precio": 18.9246
-    },
-    {
-      "symbol": "VX/X6",
-      "vencimiento": "2026-11-18",
-      "dias_al_vto": 85,
-      "precio": 19.6957
-    },
-    {
-      "symbol": "VX/Z6",
-      "vencimiento": "2026-12-16",
-      "dias_al_vto": 113,
-      "precio": 19.85
-    },
-    {
-      "symbol": "VX/F7",
-      "vencimiento": "2027-01-20",
-      "dias_al_vto": 148,
-      "precio": 20.9713
-    },
-    {
-      "symbol": "VX/G7",
-      "vencimiento": "2027-02-17",
-      "dias_al_vto": 176,
-      "precio": 21.4985
-    },
-    {
-      "symbol": "VX/H7",
-      "vencimiento": "2027-03-17",
-      "dias_al_vto": 204,
-      "precio": 21.7425
-    },
-    {
-      "symbol": "VX/J7",
-      "vencimiento": "2027-04-21",
-      "dias_al_vto": 239,
-      "precio": 22.0392
-    },
-    {
-      "symbol": "VX/K7",
-      "vencimiento": "2027-05-18",
-      "dias_al_vto": 266,
-      "precio": 22.45
+      "dias_al_vto": 0,
+      "precio": 15.61
     }
   ]
 }
